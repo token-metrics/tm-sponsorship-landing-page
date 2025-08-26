@@ -6,10 +6,11 @@ export default function Packages() {
       category: 'Content Features',
       items: [
         { name: 'Non-Competitive Blog', price: '$1,500', features: ['SEO optimized', 'Permanent placement', 'Google front page potential'] },
-        { name: 'Livestream Ad', price: '$3,500', features: ['60-120 second ad', 'Live audience engagement', 'Real-time interaction'] },
-        { name: 'Podcast/Webinar', price: '$4,000', features: ['In-depth discussion', 'Expert positioning', 'Engaged audience'] },
+        { name: 'Livestream Ad', price: '$3,000', features: ['60-120 second ad', 'Live audience engagement', 'Real-time interaction'] },
         { name: 'Competitive Blog', price: '$6,000', features: ['Premium positioning', 'Extended coverage', 'Multi-channel promotion'] },
-        { name: 'YouTube Video Feature', price: '$7,000', features: ['60-120 second ad', 'Full production support', 'Avg 56k+ views'] },
+        { name: 'YouTube Video Feature', price: '$3,500', features: ['60-120 second ad', 'Full production support', 'Avg 56k+ views'] },
+        { name: 'Youtube Dedicated Video', price: '$8,000', features: ['Dedicated full video', 'Premium positioning', 'Maximum exposure'] },
+        { name: 'Youtube Interview', price: '$12,000', features: ['Personal interview session', 'Extended coverage', 'Premium engagement'] },
       ]
     },
     {
