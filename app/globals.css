@@ -10,4 +10,38 @@
   .transform-3d {
     transform: perspective(1000px) rotateY(-5deg);
   }
+
+  /* Premium shine sweep for top-tier cards */
+  .tm-shine {
+    position: absolute;
+    inset: -1px;
+    border-radius: 0.5rem; /* matches rounded-lg */
+    background: linear-gradient(120deg, rgba(255,207,48,0) 20%, rgba(255,207,48,0.25) 40%, rgba(255,207,48,0) 60%);
+    background-size: 300% 300%;
+    animation: tm-shine-move 3.5s linear infinite;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  @keyframes tm-shine-move {
+    0% { background-position: 120% 0; opacity: 0.2; }
+    50% { background-position: -20% 0; opacity: 0.35; }
+    100% { background-position: 120% 0; opacity: 0.2; }
+  }
+
+  /* 3D tilt and spotlight helpers */
+  .tm-tilt {
+    --rx: 0deg; /* rotateX */
+    --ry: 0deg; /* rotateY */
+    --spot-x: 50%;
+    --spot-y: 50%;
+    transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+    transform-style: preserve-3d;
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  }
+  .tm-tilt:hover,
+  .tm-tilt:focus-visible {
+    transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) scale(1.03);
+  }
+  /* spotlight removed per design preference */
 }

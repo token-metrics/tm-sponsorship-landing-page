@@ -30,10 +30,12 @@ export default function Hero() {
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <a
-              href="#packages"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSeNTNj9ABa2gvuoeyAKISILc1C1p8XLE2vvidRU29ZNqLuFdA/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-md bg-tm-yellow px-6 py-3 text-lg font-semibold text-black shadow-sm hover:bg-yellow-400 transition-colors"
             >
-              View Sponsorship Packages
+              Submit Sponsorship Inquiry
             </a>
             <a
               href="#stats"
