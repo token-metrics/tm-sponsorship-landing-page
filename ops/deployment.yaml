@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tm-sponsorship-landing-page
+  namespace: tm-sponsorship-landing-page
+  labels:
+    app: tm-sponsorship-landing-page
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+      app: tm-sponsorship-landing-page
+  template:
+    metadata:
+      labels:
+        app: tm-sponsorship-landing-page
+    spec:
+      imagePullSecrets:
+        - name: airflow-kafka-registry 
+      containers:
+        - name: tm-sponsorship-landing-page
+          image: tmderegstry-g4a7frgzesare7c9.azurecr.io/tm-sponsorship-landing-page:main-3db7ac8
+          ports:
+            - containerPort: 3000 
+          resources:
+            requests:
+              memory: "256Mi" 
+              cpu: "100m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
