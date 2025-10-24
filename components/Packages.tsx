@@ -1,234 +1,518 @@
 'use client'
-import Image from 'next/image'
-import { Sparkles, Star, Crown } from 'lucide-react'
-import { LucideIcon } from 'lucide-react'
 
-type PackageItem = {
-  name: string
-  price: string
-  priceSubtext?: string
-  icon?: LucideIcon
-  features: string[]
+import React, { useEffect } from 'react'
+import Image from 'next/image'
+
+const BLOG_FEATURES = [
+  {
+    name: 'Link Insertion',
+    description: [
+      'Contextual mention + link added to existing ranking post.',
+      'Link policy: Nofollow / sponsored only.'
+    ],
+    price: '$400 - $900',
+    priceNote: '(one time)',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/Link-Chain--Streamline-Core%201.svg',
+    featured: false
+  },
+  {
+    name: 'Guest Post',
+    description: [
+      '1,400–1,800 words, editor-written',
+      'Includes internal links to ranking hubs.',
+      ''
+    ],
+    price: '$1,200 - $2,500',
+    priceNote: '(one time)',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/Crown--Streamline-Core%20(2)%201.svg',
+    featured: true
+  }
+]
+
+const YOUTUBE_FEATURES = [
+  {
+    name: 'Livestream Ad',
+    description: [
+      '60-120 second ad',
+      'Live audience engagement',
+      'Real-time interaction'
+    ],
+    price: '$3,000',
+    priceNote: '',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/Play-List-9--Streamline-Core%201.svg',
+    featured: false
+  },
+  {
+    name: 'YouTube Video Feature',
+    description: [
+      '60-120 second ad',
+      'Full production support',
+      'Avg 56k+ views'
+    ],
+    price: '$3,500',
+    priceNote: '',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/Play-List-9--Streamline-Core%201.svg',
+    featured: true
+  },
+  {
+    name: 'Youtube Interview',
+    description: [
+      '60-120 second ad',
+      'Full production support',
+      'Avg 56k+ views'
+    ],
+    price: '$1,200 - $2,500',
+    priceNote: '(one time)',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/Webcam-Video--Streamline-Core%201.svg',
+    featured: false
+  },
+  {
+    name: 'Youtube Dedicated Video',
+    description: [
+      '60-120 second ad',
+      'Full production support',
+      'Avg 56k+ views'
+    ],
+    price: '$1,200 - $2,500',
+    priceNote: '(one time)',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/Film-Slate--Streamline-Core%20(1)%201.svg',
+    featured: false
+  }
+]
+
+const NEWSLETTER_FEATURES = [
+  {
+    name: 'Tail Placement',
+    description: [
+      'Cost-effective',
+      'Good visibility',
+      'Call-to-action focused'
+    ],
+    price: '$499',
+    priceNote: '',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/Browser-Website-1--Streamline-Core%202.svg',
+    featured: false
+  },
+  {
+    name: 'Top Header Placement',
+    description: [
+      'Prime visibility',
+      'First impression',
+      '160k+ subscribers'
+    ],
+    price: '$599',
+    priceNote: '',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/Browser-Website-1--Streamline-Core%201.svg',
+    featured: false
+  },
+  {
+    name: 'Full Issue Takeover',
+    description: [
+      'Exclusive presence',
+      'Multiple placements',
+      'Complete control'
+    ],
+    price: '$1,199',
+    priceNote: '',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/Inbox-Favorite--Streamline-Core%201.svg',
+    featured: true
+  },
+  {
+    name: 'Main Feature Highlight',
+    description: [
+      'Detailed coverage',
+      'Center placement',
+      'Maximum engagement'
+    ],
+    price: '$799',
+    priceNote: '',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/Desktop-Favorite-Star--Streamline-Core%20(1)%201.svg',
+    featured: false
+  }
+]
+
+const RESEARCH_FEATURES = [
+  {
+    name: 'Full Issue Takeover',
+    description: [
+      'Exclusive presence',
+      'Multiple placements',
+      'Complete control'
+    ],
+    price: '$1,199',
+    priceNote: '',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/Inbox-Favorite--Streamline-Core%201.svg',
+    featured: true
+  }
+]
+
+// Map package sections to corresponding metrics cards
+const SECTION_TO_CARD_MAP = {
+  'Blog Features': ['metrics-card-link-insertion', 'metrics-card-guest-post'], // Maps to both Link Insertion and Guest Post
+  'YouTube Features': 'metrics-card-youtube', // Maps to 🎥 YouTube metrics
+  'Newsletter Placements': 'metrics-card-newsletter', // Maps to 📰 Newsletter metrics
+  'Research Platform': 'metrics-card-research'  // Maps to 🔍 Research metrics
+}
+
+const PremiumBadge = () => (
+  <div className="absolute right-[18.46px] top-[18px] z-10 flex items-center gap-[6px] rounded-[5px] px-2 py-[3px] bg-gradient-to-r from-[#FFD60A] to-[#FFF4BB] shadow-[0_0_16px_0_rgba(255,214,10,0.45)]">
+    <Image
+      src="/Landing%20Page%20Token%20Metrics_icon/Diamond-2--Streamline-Core%20(3)%202.svg"
+      alt="Premium"
+      width={13}
+      height={13}
+      className="shrink-0"
+    />
+    <span className="text-[10px] font-bold leading-none text-black">PREMIUM</span>
+  </div>
+)
+
+// Function to handle smooth scroll with animated tilt effect
+const handleViewMetrics = (sectionName: string) => {
+  const cardIds = SECTION_TO_CARD_MAP[sectionName as keyof typeof SECTION_TO_CARD_MAP]
+  if (cardIds) {
+    // Remove any existing highlights and animations from other cards
+    document.querySelectorAll('.metrics-highlight').forEach(el => {
+      el.classList.remove('metrics-highlight', 'auto-tilt')
+      ;(el as HTMLElement).style.setProperty('--rx', '0deg')
+      ;(el as HTMLElement).style.setProperty('--ry', '0deg')
+    })
+
+    // Handle both single card ID and array of card IDs
+    const ids = Array.isArray(cardIds) ? cardIds : [cardIds]
+
+    // Find all the elements
+    const elements = ids.map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[]
+
+    if (elements.length > 0) {
+      // Scroll to the first element
+      elements[0].scrollIntoView({ behavior: 'smooth', block: 'center' })
+
+      // Wait for scroll to complete, then start automatic tilt animation on all cards
+      setTimeout(() => {
+        elements.forEach((element) => {
+          element.classList.add('auto-tilt')
+          element.classList.add('metrics-highlight')
+        })
+
+        let tiltAngle = 0
+        let direction = 1
+
+        const tiltInterval = setInterval(() => {
+          // Gradually increase tilt angle to max, then decrease
+          tiltAngle += direction * 0.5
+
+          if (tiltAngle >= 6) {
+            tiltAngle = 6
+            direction = -1 // Reverse direction
+          } else if (tiltAngle <= -6) {
+            tiltAngle = -6
+            direction = 1 // Reverse direction
+          }
+
+          // Apply the same tilt to all cards simultaneously
+          elements.forEach(element => {
+            element.style.setProperty('--rx', '0deg')
+            element.style.setProperty('--ry', `${tiltAngle}deg`)
+          })
+
+        }, 50) // Smooth animation
+
+        // Stop tilting after 4 seconds and return to normal
+        setTimeout(() => {
+          clearInterval(tiltInterval)
+
+          // Smoothly return to center for all cards
+          elements.forEach(element => {
+            const returnToCenter = () => {
+              const currentTilt = parseFloat(element.style.getPropertyValue('--ry')) || 0
+              const newTilt = currentTilt * 0.8 // Gradual return
+              element.style.setProperty('--ry', `${newTilt}deg`)
+
+              if (Math.abs(newTilt) > 0.1) {
+                requestAnimationFrame(returnToCenter)
+              } else {
+                // Complete cleanup
+                element.classList.remove('metrics-highlight', 'auto-tilt')
+                element.style.setProperty('--rx', '0deg')
+                element.style.setProperty('--ry', '0deg')
+              }
+            }
+            returnToCenter()
+          })
+        }, 4000)
+      }, 800) // Wait for scroll to complete
+    }
+  }
 }
 
 export default function Packages() {
-  const packages: { category: string; items: PackageItem[] }[] = [
-    {
-      category: 'Blog Features',
-      items: [
-        { 
-          name: 'Link Insertion', 
-          price: '$400 - $900', 
-          priceSubtext: '(one time)',
-          icon: Sparkles,
-          features: ['Contextual mention + link added to existing ranking post', 'Link policy: Nofollow / sponsored only'] 
-        },
-        { 
-          name: 'Guest Post', 
-          price: '$1,200 - $2,500', 
-          priceSubtext: '(one time)',
-          icon: Star,
-          features: ['1,400–1,800 words, editor-written', 'Includes internal links to ranking hubs'] 
-        },
-      ]
-    },
-    {
-      category: 'YouTube Features',
-      items: [
-        { name: 'Livestream Ad', price: '$3,000', features: ['60-120 second ad', 'Live audience engagement', 'Real-time interaction'] },
-        { name: 'YouTube Video Feature', price: '$3,500', features: ['60-120 second ad', 'Full production support', 'Avg 56k+ views'] },
-        { name: 'Youtube Dedicated Video', price: '$8,000', features: ['Dedicated full video', 'Premium positioning', 'Maximum exposure'] },
-        { name: 'Youtube Interview', price: '$12,000', features: ['Personal interview session', 'Extended coverage', 'Premium engagement'] },
-      ]
-    },
-    {
-      category: 'Newsletter Placements',
-      items: [
-        { name: 'Top Header Placement', price: '$599', features: ['Prime visibility', 'First impression', '160k+ subscribers'] },
-        { name: 'Main Feature Highlight', price: '$799', features: ['Detailed coverage', 'Center placement', 'Maximum engagement'] },
-        { name: 'Full Issue Takeover', price: '$1,199', features: ['Exclusive presence', 'Multiple placements', 'Complete control'] },
-        { name: 'Tail Placement', price: '$499', features: ['Cost-effective', 'Good visibility', 'Call-to-action focused'] },
-      ]
-    },
-    {
-      category: 'Research Platform',
-      items: [
-        { name: 'Platform Integration', price: '$2,399', features: ['Direct user access', 'Analytics dashboard', 'Targeted exposure'] },
-      ]
-    }
-  ]
-
-  // Extract numeric prices for dynamic tier styling
-  const parsePrice = (price: string): number => {
-    const matches = price.match(/\d[\d,]*/g)
-    if (!matches || matches.length === 0) return 0
-    const values = matches.map(v => parseInt(v.replace(/,/g, ''), 10)).filter(v => !Number.isNaN(v))
-    if (values.length === 0) return 0
-    if (values.length === 1) return values[0]
-    const sum = values.reduce((acc, v) => acc + v, 0)
-    return Math.round(sum / values.length)
-  }
-
-  const cardClassesByTier = (tier: 1 | 2 | 3 | 4 | 5): string => {
-    switch (tier) {
-      case 1:
-        return 'from-gray-900 to-gray-800 border-gray-700 hover:border-gray-500'
-      case 2:
-        return 'from-gray-900 to-gray-800 border-yellow-600/20 hover:border-yellow-500/40 ring-1 ring-yellow-500/10 shadow-[0_0_12px_rgba(255,207,48,0.05)]'
-      case 3:
-        return 'from-gray-900 to-gray-800 border-yellow-500/40 hover:border-yellow-400 ring-1 ring-yellow-400/30 shadow-[0_0_16px_rgba(255,207,48,0.08)]'
-      case 4:
-        return 'from-gray-900 to-gray-800 border-yellow-400/70 hover:border-yellow-300 ring-2 ring-yellow-400/40 shadow-[0_0_24px_rgba(255,207,48,0.18)]'
-      case 5:
-      default:
-        return 'from-gray-900 to-gray-800 border-tm-yellow hover:border-tm-yellow ring-2 ring-tm-yellow/60 shadow-[0_0_36px_rgba(255,207,48,0.28)]'
-    }
-  }
-
-  const overlayOpacityByTier = (tier: 1 | 2 | 3 | 4 | 5): string => {
-    switch (tier) {
-      case 1:
-        return 'opacity-0'
-      case 2:
-        return 'opacity-30'
-      case 3:
-        return 'opacity-40'
-      case 4:
-        return 'opacity-60'
-      case 5:
-      default:
-        return 'opacity-80'
-    }
-  }
-
-  const priceColorByTier = (tier: 1 | 2 | 3 | 4 | 5): string => {
-    switch (tier) {
-      case 1:
-        return 'text-white'
-      case 2:
-        return 'text-yellow-200'
-      case 3:
-        return 'text-yellow-300'
-      case 4:
-        return 'text-yellow-300'
-      case 5:
-      default:
-        return 'text-tm-yellow'
-    }
-  }
-
   return (
-    <section id="packages" className="py-24 sm:py-32 bg-black/50 relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16 relative">
-          <div className="absolute -left-20 md:-left-32 -top-28 md:-top-33 w-[150px] h-[150px] md:w-[180px] md:h-[180px] lg:w-[220px] lg:h-[220px] xl:w-[280px] xl:h-[280px] z-0">
+    <section className="px-6 py-20" data-node-id="5655:18134">
+      <div className="mx-auto w-full max-w-[954px]">
+        {/* Header */}
+        <div className="mb-20 flex items-center gap-4 md:gap-1">
+          <div className="relative h-[314px] w-[200px] md:w-[314px]">
             <Image
-              src="/tmai-rocket.png"
-              alt="TMAI Rocket"
+              src="/Landing%20Page%20Token%20Metrics_img/jetpack%201%202.png"
+              alt="Token Metrics Jetpack"
               fill
-              className="object-contain drop-shadow-2xl"
+              className="object-contain"
             />
           </div>
-          <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl relative z-10">
-            Sponsorship <span className="text-tm-yellow">Packages</span>
-          </h2>
-          <p className="mt-4 text-lg text-gray-300 relative z-10">
-            Choose the perfect package to reach our crypto-native audience
-          </p>
+          <div className="flex-1">
+            <h2 className="mb-4 font-['Articulat_CF',_sans-serif] text-[40px] md:text-[56px] font-medium leading-normal text-white">
+              <span className="text-[#FFD60A]">Sponsorship</span> Packages
+            </h2>
+            <p className="font-['Articulat_CF',_sans-serif] text-[18px] md:text-[24px] leading-relaxed text-white">
+              Choose the perfect package to reach our<br />crypto-native audience
+            </p>
+          </div>
         </div>
 
-        {packages.map((category) => {
-          const items = category.category === 'Newsletter Placements'
-            ? [...category.items].sort((a, b) => parsePrice(a.price) - parsePrice(b.price))
-            : category.items
-          const numericPrices = items.map(i => parsePrice(i.price))
-          const catMin = Math.min(...numericPrices)
-          const catMax = Math.max(...numericPrices)
-          const count = category.items.length
+        {/* Blog Features */}
+        <div className="mb-16 mx-auto w-[680px]">
+          <div className="mb-8 flex items-start justify-between">
+            <h3 className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-medium leading-normal text-white">
+              <span className="font-semibold">Blog Features</span> <span className="text-white">(Domain Authority - 65%)</span>
+            </h3>
+            <button
+              onClick={() => handleViewMetrics('Blog Features')}
+              className="text-[14px] md:text-[16px] text-white underline hover:text-[#FFD60A] transition-colors"
+            >
+              View Metrics
+            </button>
+          </div>
 
-          const getTierForCategory = (value: number): 1 | 2 | 3 | 4 | 5 => {
-            if (count <= 1) return 5
-            if (count === 2) return value === catMax ? 5 : 2
-            if (!Number.isFinite(value) || catMax === catMin) return 3
-            const normalized = (value - catMin) / (catMax - catMin)
-            const tier = Math.min(4, Math.floor(normalized * 4)) + 1
-            return tier as 1 | 2 | 3 | 4 | 5
-          }
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
+            {BLOG_FEATURES.slice().sort((a,b)=> Number(a.featured) - Number(b.featured)).map((feature, index) => (
+              <div
+                key={index}
+                className={`relative rounded-[12px] border p-5 transition-all duration-300 hover:scale-105 ${
+                  feature.featured
+                    ? 'border-[#FFD60A] bg-[rgba(255,214,10,0.16)] shadow-[0_0_30px_0_rgba(255,214,10,0.35)]'
+                    : 'border-white/10 bg-[rgba(255,255,255,0.06)]'
+                }`}
+              >
+                {feature.featured && <PremiumBadge />}
 
-          return (
-            <div key={category.category} className="mb-16">
-              <h3 className="text-2xl font-bold text-tm-yellow mb-8">{category.category}</h3>
-              <div className={category.category === 'Blog Features' 
-                ? "flex flex-wrap justify-center gap-8" 
-                : "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"}>
-                {items.map((item) => {
-                  const numericPrice = parsePrice(item.price)
-                  const tier = getTierForCategory(numericPrice)
-                  const cardClasses = cardClassesByTier(tier)
-                  const overlayOpacity = overlayOpacityByTier(tier)
-                  const priceColor = priceColorByTier(tier)
-                  return (
-                    <div
-                      key={item.name}
-                      className={`group tm-tilt relative bg-gradient-to-br ${cardClasses} rounded-lg p-8 border transition-all ${category.category === 'Blog Features' ? 'w-full sm:w-[400px]' : ''}`}
-                      onMouseMove={(e) => {
-                        const target = e.currentTarget as HTMLElement
-                        const rect = target.getBoundingClientRect()
-                        const x = e.clientX - rect.left
-                        const y = e.clientY - rect.top
-                        const ry = ((x - rect.width / 2) / rect.width) * 10 // -5..5deg
-                        const rx = -((y - rect.height / 2) / rect.height) * 10
-                        target.style.setProperty('--ry', ry.toFixed(2) + 'deg')
-                        target.style.setProperty('--rx', rx.toFixed(2) + 'deg')
-                      }}
-                      onMouseLeave={(e) => {
-                        const target = e.currentTarget as HTMLElement
-                        target.style.setProperty('--ry', '0deg')
-                        target.style.setProperty('--rx', '0deg')
-                      }}
-                    >
-                      {/* Radial gold glow overlays scale with tier */}
-                      <div className={`pointer-events-none absolute inset-0 rounded-lg mix-blend-screen ${overlayOpacity} transition-opacity`}>
-                        <div className="absolute inset-0 rounded-lg bg-[radial-gradient(450px_200px_at_0%_0%,rgba(255,207,48,0.12),transparent),radial-gradient(300px_200px_at_100%_100%,rgba(255,207,48,0.08),transparent)]" />
-                      </div>
-                      {/* Premium badge for top tiers */}
-                      {(tier === 4 || tier === 5) && (
-                        <div className="absolute right-4 top-4 flex items-center gap-1 px-2 py-1 rounded-full border border-yellow-300/50 bg-yellow-500/10 text-yellow-200 text-xs uppercase tracking-wide">
-                          {tier === 5 ? <Crown className="w-3.5 h-3.5" /> : <Star className="w-3.5 h-3.5" />}
-                          <span>{tier === 5 ? 'Premium' : 'Popular'}</span>
-                        </div>
-                      )}
-                      {tier === 5 && (
-                        <div className="tm-shine" />
-                      )}
-                      {item.icon && (
-                        <div className="mb-4 flex items-center justify-center w-12 h-12 bg-tm-yellow/10 rounded-full">
-                          <item.icon className="w-6 h-6 text-tm-yellow" />
-                        </div>
-                      )}
-                      <div className="mb-6">
-                        <h4 className="text-xl font-semibold text-white mb-3">{item.name}</h4>
-                        <p className="text-sm text-gray-400 mb-4">
-                          {item.features.map((feature, index) => (
-                            <span key={index} className="block mb-1">{feature}</span>
-                          ))}
-                        </p>
-                        <div className="mt-4">
-                          <p className={`text-3xl font-bold ${priceColor}`}>
-                            {item.price}
-                            {item.priceSubtext && (
-                              <span className="text-sm font-normal text-gray-400 ml-2">{item.priceSubtext}</span>
-                            )}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
+                <Image
+                  src={feature.icon}
+                  alt={feature.name}
+                  width={30}
+                  height={30}
+                  className="mb-5"
+                />
+
+                <h4 className="mb-3 font-['Articulat_CF',_sans-serif] text-[16px] md:text-[18px] font-semibold text-white">
+                  {feature.name}
+                </h4>
+
+                <div className="mb-4 space-y-[2px]">
+                  {feature.description.map((line, lineIndex) => (
+                    <p key={lineIndex} className="font-['Articulat_CF',_sans-serif] text-[12px] leading-snug text-white">
+                      {line}
+                    </p>
+                  ))}
+                </div>
+
+                <div>
+                  <span className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-semibold bg-gradient-to-b from-[#FFD60A] to-[#FFF4BB] bg-clip-text text-transparent align-middle" style={{ WebkitTextFillColor: 'transparent' }}>
+                    {feature.price}
+                  </span>
+                  {feature.priceNote && (
+                    <span className="ml-2 inline-block align-middle font-['Articulat_CF',_sans-serif] text-[12px] text-[#9ca8b7] md:text-[#b7b49c]">
+                      {feature.priceNote}
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
-          )
-        })}
+            ))}
+          </div>
+        </div>
+
+        {/* YouTube Features */}
+        <div className="mb-16 mx-auto w-[680px]">
+          <div className="mb-8 flex items-start justify-between">
+            <h3 className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-medium leading-normal text-white">
+              <span className="font-semibold">YouTube Features</span> <span className="text-white">(150K Subscribers)</span>
+            </h3>
+            <button
+              onClick={() => handleViewMetrics('YouTube Features')}
+              className="text-[14px] md:text-[16px] text-white underline hover:text-[#FFD60A] transition-colors"
+            >
+              View Metrics
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
+            {YOUTUBE_FEATURES.slice().sort((a,b)=> Number(a.featured) - Number(b.featured)).map((feature, index) => (
+              <div
+                key={index}
+                className={`relative rounded-[12px] border p-5 transition-all duration-300 hover:scale-105 ${
+                  feature.featured
+                    ? 'border-[#FFD60A] bg-[rgba(255,214,10,0.16)] shadow-[0_0_30px_0_rgba(255,214,10,0.35)]'
+                    : 'border-white/10 bg-[rgba(255,255,255,0.06)]'
+                }`}
+              >
+                {feature.featured && <PremiumBadge />}
+
+                <Image
+                  src={feature.icon}
+                  alt={feature.name}
+                  width={30}
+                  height={30}
+                  className="mb-5"
+                />
+
+                <h4 className="mb-3 font-['Articulat_CF',_sans-serif] text-[16px] md:text-[18px] font-semibold text-white">
+                  {feature.name}
+                </h4>
+
+                <div className="mb-4 space-y-[2px]">
+                  {feature.description.map((line, lineIndex) => (
+                    <p key={lineIndex} className="font-['Articulat_CF',_sans-serif] text-[12px] leading-snug text-white">
+                      {line}
+                    </p>
+                  ))}
+                </div>
+
+                <div>
+                  <span className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-semibold bg-gradient-to-b from-[#FFD60A] to-[#FFF4BB] bg-clip-text text-transparent align-middle" style={{ WebkitTextFillColor: 'transparent' }}>
+                    {feature.price}
+                  </span>
+                  {feature.priceNote && (
+                    <span className="ml-2 inline-block align-middle font-['Articulat_CF',_sans-serif] text-[12px] text-[#9ca8b7] md:text-[#b7b49c]">
+                      {feature.priceNote}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Newsletter Placements */}
+        <div className="mb-16 mx-auto w-[680px]">
+          <div className="mb-8 flex items-start justify-between">
+            <h3 className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-medium leading-normal text-white">
+              <span className="font-semibold">Newsletter Placements</span> <span className="text-white">(150K Readers)</span>
+            </h3>
+            <button
+              onClick={() => handleViewMetrics('Newsletter Placements')}
+              className="text-[14px] md:text-[16px] text-white underline hover:text-[#FFD60A] transition-colors"
+            >
+              View Metrics
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
+            {NEWSLETTER_FEATURES.slice().sort((a,b)=> Number(a.featured) - Number(b.featured)).map((feature, index) => (
+              <div
+                key={index}
+                className={`relative rounded-[12px] border p-5 transition-all duration-300 hover:scale-105 ${
+                  feature.featured
+                    ? 'border-[#FFD60A] bg-[rgba(255,214,10,0.16)] shadow-[0_0_30px_0_rgba(255,214,10,0.35)]'
+                    : 'border-white/10 bg-[rgba(255,255,255,0.06)]'
+                }`}
+              >
+                {feature.featured && <PremiumBadge />}
+
+                <Image
+                  src={feature.icon}
+                  alt={feature.name}
+                  width={30}
+                  height={30}
+                  className="mb-5"
+                />
+
+                <h4 className="mb-3 font-['Articulat_CF',_sans-serif] text-[16px] md:text-[18px] font-semibold text-white">
+                  {feature.name}
+                </h4>
+
+                <div className="mb-4 space-y-[2px]">
+                  {feature.description.map((line, lineIndex) => (
+                    <p key={lineIndex} className="font-['Articulat_CF',_sans-serif] text-[12px] leading-snug text-white">
+                      {line}
+                    </p>
+                  ))}
+                </div>
+
+                <div>
+                  <span className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-semibold bg-gradient-to-b from-[#FFD60A] to-[#FFF4BB] bg-clip-text text-transparent align-middle" style={{ WebkitTextFillColor: 'transparent' }}>
+                    {feature.price}
+                  </span>
+                  {feature.priceNote && (
+                    <span className="ml-2 inline-block align-middle font-['Articulat_CF',_sans-serif] text-[12px] text-[#9ca8b7] md:text-[#b7b49c]">
+                      {feature.priceNote}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Research Platform */}
+        <div className="mx-auto w-[680px]">
+          <div className="mb-8 flex items-start justify-between">
+            <h3 className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-bold leading-normal text-white">
+              Research Platform
+            </h3>
+            <button
+              onClick={() => handleViewMetrics('Research Platform')}
+              className="text-[14px] md:text-[16px] text-white underline hover:text-[#FFD60A] transition-colors"
+            >
+              View Metrics
+            </button>
+          </div>
+
+          <div className="flex justify-center">
+            {RESEARCH_FEATURES.map((feature, index) => (
+              <div
+                key={index}
+                className={`relative w-full max-w-[320px] rounded-[12px] border p-5 transition-all duration-300 hover:scale-105 ${
+                  feature.featured
+                    ? 'border-[#FFD60A] bg-[rgba(255,214,10,0.16)] shadow-[0_0_30px_0_rgba(255,214,10,0.35)]'
+                    : 'border-white/10 bg-[rgba(255,255,255,0.06)]'
+                }`}
+              >
+                {feature.featured && <PremiumBadge />}
+
+                <Image
+                  src={feature.icon}
+                  alt={feature.name}
+                  width={30}
+                  height={30}
+                  className="mb-5"
+                />
+
+                <h4 className="mb-4 font-['Articulat_CF',_sans-serif] text-[16px] md:text-[18px] font-semibold text-white">
+                  {feature.name}
+                </h4>
+
+                <div className="mb-6 space-y-1">
+                  {feature.description.map((line, lineIndex) => (
+                    <p key={lineIndex} className="font-['Articulat_CF',_sans-serif] text-[12px] text-white">
+                      {line}
+                    </p>
+                  ))}
+                </div>
+
+                <div>
+                  <span className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-semibold bg-gradient-to-b from-[#FFD60A] to-[#FFF4BB] bg-clip-text text-transparent" style={{ WebkitTextFillColor: 'transparent' }}>
+                    {feature.price}
+                  </span>
+                  {feature.priceNote && (
+                    <span className="ml-2 font-['Articulat_CF',_sans-serif] text-[12px] text-[#9ca8b7] md:text-[#b7b49c]">
+                      {feature.priceNote}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )

@@ -8,7 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'tm-yellow': '#FFCF30',
+        'tm-yellow': '#ffd60a',
+      },
+      fontFamily: {
+        // Prefer Adobe Fonts kit family name when available, fallback to local name
+        sans: ['articulat-cf', '"Articulat CF"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
     },
   },
