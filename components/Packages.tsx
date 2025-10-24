@@ -52,31 +52,31 @@ const YOUTUBE_FEATURES = [
     price: '$3,500',
     priceNote: '',
     icon: '/Landing%20Page%20Token%20Metrics_icon/Play-List-9--Streamline-Core%201.svg',
-    featured: true
-  },
-  {
-    name: 'Youtube Interview',
-    description: [
-      '60-120 second ad',
-      'Full production support',
-      'Avg 56k+ views'
-    ],
-    price: '$1,200 - $2,500',
-    priceNote: '(one time)',
-    icon: '/Landing%20Page%20Token%20Metrics_icon/Webcam-Video--Streamline-Core%201.svg',
     featured: false
   },
   {
     name: 'Youtube Dedicated Video',
     description: [
-      '60-120 second ad',
-      'Full production support',
-      'Avg 56k+ views'
+      'Dedicated full video',
+      'Premium positioning',
+      'Maximum exposure'
     ],
-    price: '$1,200 - $2,500',
+    price: '$8,000',
     priceNote: '(one time)',
     icon: '/Landing%20Page%20Token%20Metrics_icon/Film-Slate--Streamline-Core%20(1)%201.svg',
     featured: false
+  },
+  {
+    name: 'Youtube Interview',
+    description: [
+      'Personal interview session',
+      'Extended coverage',
+      'Premium engagement'
+    ],
+    price: '$12,000',
+    priceNote: '(one time)',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/Webcam-Video--Streamline-Core%201.svg',
+    featured: true
   }
 ]
 
@@ -133,18 +133,29 @@ const NEWSLETTER_FEATURES = [
 
 const RESEARCH_FEATURES = [
   {
-    name: 'Full Issue Takeover',
+    name: 'Platform Integration',
     description: [
-      'Exclusive presence',
-      'Multiple placements',
-      'Complete control'
+      'Direct user acess',
+      'Analytics dashboard',
+      'Targeted exposure'
     ],
-    price: '$1,199',
+    price: '$2,399',
     priceNote: '',
     icon: '/Landing%20Page%20Token%20Metrics_icon/Inbox-Favorite--Streamline-Core%201.svg',
     featured: true
   }
 ]
+
+// Function to extract numeric value from price string
+const extractPrice = (price: string) => {
+  // Extract numbers from price strings like "$400 - $900" or "$1,200"
+  const numbers = price.match(/\$?([\d,]+)/g)
+  if (!numbers) return 0
+
+  // If it's a range, take the lower number
+  const firstNumber = numbers[0].replace(/[$,]/g, '')
+  return parseInt(firstNumber)
+}
 
 // Map package sections to corresponding metrics cards
 const SECTION_TO_CARD_MAP = {
@@ -285,7 +296,7 @@ export default function Packages() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
-            {BLOG_FEATURES.slice().sort((a,b)=> Number(a.featured) - Number(b.featured)).map((feature, index) => (
+            {BLOG_FEATURES.slice().sort((a,b)=> extractPrice(a.price) - extractPrice(b.price)).map((feature, index) => (
               <div
                 key={index}
                 className={`relative rounded-[12px] border p-5 transition-all duration-300 hover:scale-105 ${
@@ -346,7 +357,7 @@ export default function Packages() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
-            {YOUTUBE_FEATURES.slice().sort((a,b)=> Number(a.featured) - Number(b.featured)).map((feature, index) => (
+            {YOUTUBE_FEATURES.slice().sort((a,b)=> extractPrice(a.price) - extractPrice(b.price)).map((feature, index) => (
               <div
                 key={index}
                 className={`relative rounded-[12px] border p-5 transition-all duration-300 hover:scale-105 ${
@@ -407,7 +418,7 @@ export default function Packages() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
-            {NEWSLETTER_FEATURES.slice().sort((a,b)=> Number(a.featured) - Number(b.featured)).map((feature, index) => (
+            {NEWSLETTER_FEATURES.slice().sort((a,b)=> extractPrice(a.price) - extractPrice(b.price)).map((feature, index) => (
               <div
                 key={index}
                 className={`relative rounded-[12px] border p-5 transition-all duration-300 hover:scale-105 ${
