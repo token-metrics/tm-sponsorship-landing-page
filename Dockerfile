@@ -2,9 +2,10 @@ FROM node:18-alpine AS base
 
 WORKDIR /app
 
+COPY pnpm-lock.yaml ./
 COPY package.json ./
 
-RUN npm install -g pnpm && pnpm install
+RUN npm install -g pnpm && pnpm install --frozen-lockfile
 
 COPY . .
 
