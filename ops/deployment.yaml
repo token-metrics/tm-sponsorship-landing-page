@@ -16,10 +16,10 @@ spec:
         app: tm-sponsorship-landing-page
     spec:
       imagePullSecrets:
-        - name: airflow-kafka-registry 
+        - name: acr-json-key
       containers:
         - name: tm-sponsorship-landing-page
-          image: tmderegstry-g4a7frgzesare7c9.azurecr.io/tm-sponsorship-landing-page:main-3db7ac8
+          image: tmderegstry-g4a7frgzesare7c9.azurecr.io/tm-sponsorship-landing-page:main-4ea1e44
           ports:
             - containerPort: 3000 
           resources:

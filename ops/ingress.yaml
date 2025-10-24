@@ -1,27 +1,25 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: tm-sponsorship-landing-page-ingress
+  name: prod-tm-app-sponsors
   namespace: tm-sponsorship-landing-page
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
-  ingressClassName: nginx
+  ingressClassName: nginx-header
   rules:
-    - host: tokenmetrics.com
-      http:
-        paths:
-          - path: /sponsors
-            pathType: Prefix
-            backend:
-              service:
-                name: tm-sponsorship-landing-page-service
-                port:
-                  number: 80
+  - host: sponsors.tokenmetrics.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: tm-sponsorship-landing-page-service
+            port:
+              number: 80
   tls:
-    - hosts:
-        - tokenmetrics.com
-      secretName: tm-sponsorship-landing-page-tls
+  - hosts:
+    - sponsors.tokenmetrics.com
+    secretName: tm-sponsors-tls
