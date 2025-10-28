@@ -146,6 +146,33 @@ const RESEARCH_FEATURES = [
   }
 ]
 
+const SOCIAL_FEATURES = [
+  {
+    name: 'Twitter (X) Post',
+    description: [
+      'Single post with CTA link',
+      'Direct engagement with crypto community',
+      '160K Followers reach'
+    ],
+    price: '$1,500',
+    priceNote: '$250',
+    icon: '/Landing%20Page%20Token%20Metrics_icon/X_logo_2023 (1) 1.svg',
+    featured: true
+  },
+  {
+    name: 'Telegram Group Pin',
+    description: [
+      'Promo post + 24-hour pin in our crypto group',
+      'High visibility in engaged community',
+      '10K Members reach'
+    ],
+    price: '$500',
+    priceNote: '',
+    icon: '/telegram-logo.svg',
+    featured: false
+  }
+]
+
 // Function to extract numeric value from price string
 const extractPrice = (price: string) => {
   // Extract numbers from price strings like "$400 - $900" or "$1,200"
@@ -162,7 +189,8 @@ const SECTION_TO_CARD_MAP = {
   'Blog Features': ['metrics-card-link-insertion', 'metrics-card-guest-post'], // Maps to both Link Insertion and Guest Post
   'YouTube Features': 'metrics-card-youtube', // Maps to 🎥 YouTube metrics
   'Newsletter Placements': 'metrics-card-newsletter', // Maps to 📰 Newsletter metrics
-  'Research Platform': 'metrics-card-research'  // Maps to 🔍 Research metrics
+  'Research Platform': 'metrics-card-research',  // Maps to 🔍 Research metrics
+  'Social & Community Promotions': 'metrics-card-social' // Maps to 📱 Social media metrics
 }
 
 const PremiumBadge = () => (
@@ -465,7 +493,7 @@ export default function Packages() {
         </div>
 
         {/* Research Platform */}
-        <div className="mx-auto w-[680px]">
+        <div className="mb-16 mx-auto w-[680px]">
           <div className="mb-8 flex items-start justify-between">
             <h3 className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-bold leading-normal text-white">
               Research Platform
@@ -516,6 +544,67 @@ export default function Packages() {
                   </span>
                   {feature.priceNote && (
                     <span className="ml-2 font-['Articulat_CF',_sans-serif] text-[12px] text-[#9ca8b7] md:text-[#b7b49c]">
+                      {feature.priceNote}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Social & Community Promotions */}
+        <div className="mx-auto w-[680px]">
+          <div className="mb-8 flex items-start justify-between">
+            <h3 className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-medium leading-normal text-white">
+              <span className="font-semibold">Social & Community Promotions</span>
+            </h3>
+            <button
+              onClick={() => handleViewMetrics('Social & Community Promotions')}
+              className="text-[14px] md:text-[16px] text-white underline hover:text-[#FFD60A] transition-colors"
+            >
+              View Metrics
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
+            {SOCIAL_FEATURES.slice().sort((a,b)=> extractPrice(a.price) - extractPrice(b.price)).map((feature, index) => (
+              <div
+                key={index}
+                className={`relative rounded-[12px] border p-5 transition-all duration-300 hover:scale-105 ${
+                  feature.featured
+                    ? 'border-[#FFD60A] bg-[rgba(255,214,10,0.16)] shadow-[0_0_30px_0_rgba(255,214,10,0.35)]'
+                    : 'border-white/10 bg-[rgba(255,255,255,0.06)]'
+                }`}
+              >
+                {feature.featured && <PremiumBadge />}
+
+                <Image
+                  src={feature.icon}
+                  alt={feature.name}
+                  width={30}
+                  height={30}
+                  className="mb-5"
+                />
+
+                <h4 className="mb-3 font-['Articulat_CF',_sans-serif] text-[16px] md:text-[18px] font-semibold text-white">
+                  {feature.name}
+                </h4>
+
+                <div className="mb-4 space-y-[2px]">
+                  {feature.description.map((line, lineIndex) => (
+                    <p key={lineIndex} className="font-['Articulat_CF',_sans-serif] text-[12px] leading-snug text-white">
+                      {line}
+                    </p>
+                  ))}
+                </div>
+
+                <div>
+                  <span className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-semibold bg-gradient-to-b from-[#FFD60A] to-[#FFF4BB] bg-clip-text text-transparent align-middle" style={{ WebkitTextFillColor: 'transparent' }}>
+                    {feature.price}
+                  </span>
+                  {feature.priceNote && (
+                    <span className="ml-2 inline-block align-middle font-['Articulat_CF',_sans-serif] text-[12px] text-[#9ca8b7] md:text-[#b7b49c]">
                       {feature.priceNote}
                     </span>
                   )}

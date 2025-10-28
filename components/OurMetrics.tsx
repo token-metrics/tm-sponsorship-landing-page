@@ -61,6 +61,17 @@ const CARDS = [
     ],
     note: 'Time to live: 3–5 biz days',
   },
+  {
+    title: '📱 Social Media',
+    points: [
+      'Twitter/X: 160K Followers',
+      'Average post engagement: 2.5%',
+      'Telegram: 10K Members',
+      'Telegram daily active users: 4.2K',
+      'Post CTR average: 3.8%',
+    ],
+    note: 'Time to live: 24 hours for Telegram pin',
+  },
 ]
 
 export default function OurMetrics() {
@@ -94,6 +105,7 @@ export default function OurMetrics() {
                 if (title.includes('YouTube')) return 'metrics-card-youtube'
                 if (title.includes('Newsletter')) return 'metrics-card-newsletter'
                 if (title.includes('Research')) return 'metrics-card-research'
+                if (title.includes('Social Media')) return 'metrics-card-social'
                 return `metrics-card-${index}`
               }
 
