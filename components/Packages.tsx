@@ -37,7 +37,7 @@ const YOUTUBE_FEATURES = [
       'Live audience engagement',
       'Real-time interaction'
     ],
-    price: '$3,000',
+    price: '$2,500',
     priceNote: '',
     icon: '/Landing%20Page%20Token%20Metrics_icon/Play-List-9--Streamline-Core%201.svg',
     featured: false
@@ -61,10 +61,10 @@ const YOUTUBE_FEATURES = [
       'Premium positioning',
       'Maximum exposure'
     ],
-    price: '$8,000',
+    price: '$15,000',
     priceNote: '(one time)',
     icon: '/Landing%20Page%20Token%20Metrics_icon/Film-Slate--Streamline-Core%20(1)%201.svg',
-    featured: false
+    featured: true
   },
   {
     name: 'Youtube Interview',
@@ -76,7 +76,7 @@ const YOUTUBE_FEATURES = [
     price: '$12,000',
     priceNote: '(one time)',
     icon: '/Landing%20Page%20Token%20Metrics_icon/Webcam-Video--Streamline-Core%201.svg',
-    featured: true
+    featured: false
   }
 ]
 
