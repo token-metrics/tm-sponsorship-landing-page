@@ -2,31 +2,31 @@ import Image from 'next/image'
 
 const LOGO_SOURCES = [
   {
-    src: 'https://www.figma.com/api/mcp/asset/843b522f-a09d-4948-9f8a-3d5ca958ecf2',
+    src: '/Landing%20Page%20Token%20Metrics_icon/Group%2010.svg',
     width: 101,
     height: 19,
     alt: 'Featured on logo 1'
   },
   {
-    src: 'https://www.figma.com/api/mcp/asset/1fdda2b7-3841-452e-a061-7d66f5bc30e0',
+    src: '/Landing%20Page%20Token%20Metrics_icon/Featured%20on-2.svg',
     width: 90,
     height: 28,
     alt: 'Featured on logo 2'
   },
   {
-    src: 'https://www.figma.com/api/mcp/asset/a90bc699-2286-40f1-9c69-c6bb3e2703fe',
+    src: '/Landing%20Page%20Token%20Metrics_icon/Featured%20on-1.svg',
     width: 69,
     height: 33,
     alt: 'Featured on logo 3'
   },
   {
-    src: 'https://www.figma.com/api/mcp/asset/edf8004f-6983-48fc-a6a7-9f04dcc43e3c',
+    src: '/Landing%20Page%20Token%20Metrics_icon/Featured%20on.svg',
     width: 111,
     height: 28,
     alt: 'Featured on logo 4'
   },
   {
-    src: 'https://www.figma.com/api/mcp/asset/ad11887b-ee57-45e5-b412-2fad264a57f0',
+    src: '/Landing%20Page%20Token%20Metrics_icon/Group%209.svg',
     width: 70,
     height: 56,
     alt: 'Featured on logo 5'

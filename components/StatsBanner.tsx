@@ -60,29 +60,29 @@ export default function StatsBanner() {
             {/* Logo 1 */}
             <div className="h-[11.754px] w-[63.792px] relative shrink-0">
               <div className="absolute bottom-[0.03%] left-[-0.01%] right-0 top-0">
-                <Image src="/Landing%20Page%20Token%20Metrics_icon/Featured%20on-7.svg" alt="Featured on" className="block max-w-none size-full" fill={true} width={64} height={12} />
+                <Image src="/Landing%20Page%20Token%20Metrics_icon/Featured%20on-7.svg" alt="Featured on" className="block max-w-none size-full" width={64} height={12} />
               </div>
             </div>
 
             {/* Logo 2 */}
             <div className="h-[17.632px] w-[56.752px] relative shrink-0">
-              <Image src="/Landing%20Page%20Token%20Metrics_icon/Featured%20on-6.svg" alt="Featured on" className="block max-w-none size-full" fill={true} width={57} height={18} />
+              <Image src="/Landing%20Page%20Token%20Metrics_icon/Featured%20on-6.svg" alt="Featured on" className="block max-w-none size-full" width={57} height={18} />
             </div>
 
             {/* Logo 3 */}
             <div className="h-[20.619px] w-[43.344px] relative shrink-0">
-              <Image src="/Landing%20Page%20Token%20Metrics_icon/Featured%20on-5.svg" alt="Featured on" className="block max-w-none size-full" fill={true} width={41} height={33} />
+              <Image src="/Landing%20Page%20Token%20Metrics_icon/Featured%20on-5.svg" alt="Featured on" className="block max-w-none size-full" width={41} height={33} />
             </div>
 
             {/* Logo 4 */}
             <div className="h-[15.113px] w-[60.238px] relative shrink-0">
-              <Image src="/Landing%20Page%20Token%20Metrics_icon/Featured%20on-4.svg" alt="Featured on" className="block max-w-none size-full" fill={true} width={43} height={21} />
+              <Image src="/Landing%20Page%20Token%20Metrics_icon/Featured%20on-4.svg" alt="Featured on" className="block max-w-none size-full" width={43} height={21} />
             </div>
 
             {/* Logo 5 */}
             <div className="h-[32.744px] w-[40.971px] relative shrink-0">
               <div className="absolute bottom-0 left-[0.1%] right-[0.1%] top-[2.33%]">
-                <Image src="/Landing%20Page%20Token%20Metrics_icon/Featured%20on-3.svg" alt="Featured on" className="block max-w-none size-full" fill={true} width={41} height={13} />
+                <Image src="/Landing%20Page%20Token%20Metrics_icon/Featured%20on-3.svg" alt="Featured on" className="block max-w-none size-full" width={41} height={13} />
               </div>
             </div>
 

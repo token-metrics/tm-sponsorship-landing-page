@@ -3,38 +3,38 @@ import Image from 'next/image'
 const PARTNERS = [
   {
     name: 'Polygon',
-    image: 'https://www.figma.com/api/mcp/asset/90a2ac3d-0741-4e1a-82e5-ca500e49d463',
+    image: '/Landing%20Page%20Token%20Metrics_img/image%20228.png',
     borderRadius: 'full',
     hasBorder: false
   },
   {
     name: 'Multicoin Capital',
-    image: 'https://www.figma.com/api/mcp/asset/9c98d10b-7a84-4986-a980-1ee716380500',
+    image: '/Landing%20Page%20Token%20Metrics_img/image%20230.png',
     borderRadius: 'lg',
     hasBorder: false
   },
   {
     name: 'Dragonfly',
-    image: 'https://www.figma.com/api/mcp/asset/697ce2ed-3ab9-4604-ad8c-ba3a45a47f7e',
+    image: '/Landing%20Page%20Token%20Metrics_img/image%20234.png',
     borderRadius: 'full',
     hasBorder: true
   },
   {
     name: 'Davincij15',
-    image: 'https://www.figma.com/api/mcp/asset/5f3c896a-9fc2-4f6a-91d4-fe419e41aa44',
+    image: '/Landing%20Page%20Token%20Metrics_img/image%20233.png',
     borderRadius: 'lg',
     hasBorder: false,
     isWhiteBackground: true
   },
   {
     name: 'LayerZero',
-    image: 'https://www.figma.com/api/mcp/asset/e7304e8d-48ac-429c-b3af-09dd28c22d8c',
+    image: '/Landing%20Page%20Token%20Metrics_img/image%20232.png',
     borderRadius: 'lg',
     hasBorder: true
   },
   {
     name: 'Avalanche',
-    image: 'https://www.figma.com/api/mcp/asset/7347d67b-b405-4eb7-9863-e84db7ea338f',
+    image: '/Landing%20Page%20Token%20Metrics_img/image%20229.png',
     borderRadius: 'full',
     hasBorder: false
   }

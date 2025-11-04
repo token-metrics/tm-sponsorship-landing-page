@@ -30,7 +30,7 @@ const CARDS = [
     note: 'Time to live: 3–5 biz days',
   },
   {
-    title: '📹 YouTube',
+    title: '📰 Newsletter',
     points: [
       'Feature page views/mo: 64k views/month',
       'Active subscribers: 157,478',
@@ -40,7 +40,7 @@ const CARDS = [
     note: 'Time to live: 3–5 biz days',
   },
   {
-    title: '📰 Newsletter',
+    title: '📹 YouTube',
     points: [
       'Video Feature (60–120s): 5–10k views in 30 days',
       'Link CTR 4% → 50–200 clicks',
