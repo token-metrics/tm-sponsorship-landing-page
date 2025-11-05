@@ -4,6 +4,7 @@ import MetricsDetails from '@/components/MetricsDetails'
 import NewsletterGrowth from '@/components/NewsletterGrowth'
 import NewsletterGrowthChart from '@/components/NewsletterGrowthChart'
 import Packages from '@/components/Packages'
+import PlacementPreview from '@/components/PlacementPreview'
 import Testimonials from '@/components/Testimonials'
 import BlogHub from '@/components/BlogHub'
 import TMDailySpecial from '@/components/TMDailySpecial'
@@ -32,6 +33,9 @@ export default function Home() {
 
       {/* Sponsorship Packages Section - Node ID: 5655:18134 (w=954, centered) */}
       <Packages />
+
+      {/* Placement Preview Section */}
+      <PlacementPreview />
 
       {/* Newsletter Growth Chart Section - Node ID: 5586:20391 */}
       <NewsletterGrowthChart />
