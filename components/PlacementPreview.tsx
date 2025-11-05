@@ -41,26 +41,18 @@ export default function PlacementPreview() {
               <span>View Placement Presentation</span>
               <div className="flex h-[24px] w-[24px] items-center justify-center rounded-full bg-black/20">
                 <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path
-                    d="M1 1L11 11M11 11V3M11 11H3"
-                    stroke="black"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                  <rect x="2" y="6" width="12" height="8" rx="1" fill="black" />
+                  <rect x="4" y="4" width="12" height="8" rx="1" fill="black" opacity="0.7" />
+                  <rect x="6" y="2" width="12" height="8" rx="1" fill="black" opacity="0.4" />
                 </svg>
               </div>
             </a>
-
-            <p className="mt-4 font-['Articulat_CF',_sans-serif] text-[12px] text-[#6b7280]">
-              Opens in new tab • Interactive Figma presentation
-            </p>
           </div>
         </div>
       </div>
