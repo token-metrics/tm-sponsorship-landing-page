@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 
 const BLOG_FEATURES = [
@@ -10,7 +10,7 @@ const BLOG_FEATURES = [
       'Contextual mention + link added to existing ranking post.',
       'Link policy: Nofollow / sponsored only.'
     ],
-    price: '$400 - $900',
+    price: '$100 - $1,000',
     priceNote: '(one time)',
     icon: '/Landing%20Page%20Token%20Metrics_icon/Link-Chain--Streamline-Core%201.svg',
     featured: false
@@ -22,7 +22,7 @@ const BLOG_FEATURES = [
       'Includes internal links to ranking hubs.',
       ''
     ],
-    price: '$1,200 - $2,500',
+    price: '$500 - $2,500',
     priceNote: '(one time)',
     icon: '/Landing%20Page%20Token%20Metrics_icon/Crown--Streamline-Core%20(2)%201.svg',
     featured: true
@@ -139,7 +139,7 @@ const RESEARCH_FEATURES = [
       'Analytics dashboard',
       'Targeted exposure'
     ],
-    price: '$2,399',
+    price: '$600 - $1,800',
     priceNote: '',
     icon: '/Landing%20Page%20Token%20Metrics_icon/Inbox-Favorite--Streamline-Core%201.svg',
     featured: true
@@ -285,7 +285,157 @@ const handleViewMetrics = (sectionName: string) => {
   }
 }
 
+// Pricing data for different packages
+const PRICING_DATA = {
+  'Blog Features': [
+    { duration: '1 Month', linkInsertion: '$100', guestPost: '$500' },
+    { duration: '3 Months', linkInsertion: '$300', guestPost: '$1,000' },
+    { duration: '6 Months', linkInsertion: '$500', guestPost: '$1,500' },
+    { duration: '12 Months', linkInsertion: '$700', guestPost: '$2,000' },
+    { duration: 'Life', linkInsertion: '$1,000', guestPost: '$2,500' }
+  ],
+  'Research Platform': [
+    { duration: '1 Week', price: '$600' },
+    { duration: '2 Weeks', price: '$1,000' },
+    { duration: '3 Weeks', price: '$1,400' },
+    { duration: '4 Weeks', price: '$1,800' }
+  ]
+}
+
+// Simple Spotlight Effect Component
+const SpotlightEffect = ({ cardCount }: { cardCount: number }) => {
+  // Calculate width based on card count
+  // 1 card: 40% (narrower), 2 cards: 60% (medium), 3+ cards: 80% (wider)
+  const getWidth = () => {
+    if (cardCount <= 1) return 'w-[40%]'
+    if (cardCount === 2) return 'w-[60%]'
+    return 'w-[80%]'
+  }
+
+  return (
+    <div className="relative h-[30px] w-full pointer-events-none overflow-hidden">
+      {/* Single spotlight wave shining down from above with dynamic width */}
+      <div className={`spotlight-beam absolute top-0 left-1/2 transform -translate-x-1/2 h-full ${getWidth()} bg-gradient-to-b from-[rgba(255,214,10,0.18)] via-[rgba(255,214,10,0.08)] to-transparent`} />
+
+      {/* Animated light particles flowing down - constrained to beam width */}
+      <div className={`absolute top-0 left-1/2 transform -translate-x-1/2 h-full ${getWidth()}`}>
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 rounded-full opacity-80"
+            style={{
+              left: `${20 + Math.random() * 60}%`, // Constrain to 20-80% of beam width
+              animation: `flowDown ${4 + Math.random() * 3}s linear infinite`, // Slower: 4-7 seconds
+              animationDelay: `${Math.random() * 3}s`,
+              background: 'linear-gradient(45deg, #FFFACD, #FFD700)', // More yellow balance
+              boxShadow: '0 0 10px rgba(255, 255, 255, 0.9), 0 0 15px rgba(255, 215, 0, 0.7)'
+            }}
+          />
+        ))}
+      </div>
+
+      <style jsx>{`
+        @keyframes flowDown {
+          0% {
+            transform: translateY(-10px) translateX(0px);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.6;
+          }
+          90% {
+            opacity: 0.6;
+          }
+          100% {
+            transform: translateY(40px) translateX(${Math.random() * 20 - 10}px);
+            opacity: 0;
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+// Component for Blog Features Pricing Table
+const BlogPricingTable = () => {
+  const pricingData = [
+    { duration: '1 Month', linkInsertion: '$100', guestPost: '$500' },
+    { duration: '3 Months', linkInsertion: '$300', guestPost: '$1,000' },
+    { duration: '6 Months', linkInsertion: '$500', guestPost: '$1,500' },
+    { duration: '12 Months', linkInsertion: '$700', guestPost: '$2,000' },
+    { duration: 'Life', linkInsertion: '$1,000', guestPost: '$2,500' }
+  ]
+
+  return (
+    <div className="mt-2 overflow-hidden rounded-[12px] border border-white/10 bg-[rgba(255,255,255,0.02)]">
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-white/10 bg-gradient-to-b from-[rgba(255,214,10,0.08)] to-transparent">
+              <th className="px-4 py-3 text-left font-['Articulat_CF',_sans-serif] text-[14px] text-white font-semibold">Duration</th>
+              <th className="px-4 py-3 text-center font-['Articulat_CF',_sans-serif] text-[14px] text-white font-semibold">Link Insertion</th>
+              <th className="px-4 py-3 text-center font-['Articulat_CF',_sans-serif] text-[14px] text-white font-semibold">Guest Post</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pricingData.map((row, index) => (
+              <tr key={index} className="border-b border-white/5 transition-colors hover:bg-[rgba(255,214,10,0.05)]">
+                <td className="px-4 py-3 font-['Articulat_CF',_sans-serif] text-[14px] text-white">{row.duration}</td>
+                <td className="px-4 py-3 text-center font-['Articulat_CF',_sans-serif] text-[14px] font-semibold text-[#FFD60A]">{row.linkInsertion}</td>
+                <td className="px-4 py-3 text-center font-['Articulat_CF',_sans-serif] text-[14px] font-semibold text-[#FFD60A]">{row.guestPost}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+// Component for Research Platform Pricing Table
+const ResearchPricingTable = () => {
+  const pricingData = [
+    { duration: '1 Week', price: '$600' },
+    { duration: '2 Weeks', price: '$1,000' },
+    { duration: '3 Weeks', price: '$1,400' },
+    { duration: '4 Weeks', price: '$1,800' }
+  ]
+
+  return (
+    <div className="mt-2 overflow-hidden rounded-[12px] border border-white/10 bg-[rgba(255,255,255,0.02)]">
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-white/10 bg-gradient-to-b from-[rgba(255,214,10,0.08)] to-transparent">
+              <th className="px-4 py-3 text-left font-['Articulat_CF',_sans-serif] text-[14px] text-white font-semibold">Duration</th>
+              <th className="px-4 py-3 text-right font-['Articulat_CF',_sans-serif] text-[14px] text-white font-semibold">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pricingData.map((row, index) => (
+              <tr key={index} className="border-b border-white/5 transition-colors hover:bg-[rgba(255,214,10,0.05)]">
+                <td className="px-4 py-3 font-['Articulat_CF',_sans-serif] text-[14px] text-white">{row.duration}</td>
+                <td className="px-4 py-3 text-right font-['Articulat_CF',_sans-serif] text-[14px] font-semibold text-[#FFD60A]">{row.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
 export default function Packages() {
+  const [expandedSections, setExpandedSections] = useState<string[]>([])
+
+  const togglePricingSection = (sectionName: string) => {
+    setExpandedSections(prev =>
+      prev.includes(sectionName)
+        ? prev.filter(s => s !== sectionName)
+        : [...prev, sectionName]
+    )
+  }
+
   return (
     <section className="px-6 py-20" data-node-id="5655:18134">
       <div className="mx-auto w-full max-w-[954px]">
@@ -315,15 +465,39 @@ export default function Packages() {
             <h3 className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-medium leading-normal text-white">
               <span className="font-semibold">Blog Features</span> <span className="text-white">(Domain Authority - 65%)</span>
             </h3>
-            <button
-              onClick={() => handleViewMetrics('Blog Features')}
-              className="text-[14px] md:text-[16px] text-white underline hover:text-[#FFD60A] transition-colors"
-            >
-              View Metrics
-            </button>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => togglePricingSection('blog-pricing')}
+                className={`flex items-center gap-2 rounded-[8px] border px-3 py-2 text-[14px] text-white transition-all duration-200 ${
+                  expandedSections.includes('blog-pricing')
+                    ? 'border-[#FFD60A] bg-[rgba(255,214,10,0.1)]'
+                    : 'border-white/20 bg-white/5 hover:border-[#FFD60A] hover:bg-[rgba(255,214,10,0.1)]'
+                }`}
+                title="View detailed pricing plans"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`transition-transform duration-200 ${expandedSections.includes('blog-pricing') ? 'rotate-180' : ''}`}
+                >
+                  <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M8 11V8M8 5H8.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+                {expandedSections.includes('blog-pricing') ? 'Hide Pricing' : 'View Pricing'}
+              </button>
+              <button
+                onClick={() => handleViewMetrics('Blog Features')}
+                className="text-[14px] md:text-[16px] text-white underline hover:text-[#FFD60A] transition-colors"
+              >
+                View Metrics
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
             {BLOG_FEATURES.slice().sort((a,b)=> extractPrice(a.price) - extractPrice(b.price)).map((feature, index) => (
               <div
                 key={index}
@@ -367,6 +541,12 @@ export default function Packages() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Spotlight Effect and Pricing Table */}
+          <div className={`overflow-hidden transition-all duration-300 ${expandedSections.includes('blog-pricing') ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+            <SpotlightEffect cardCount={BLOG_FEATURES.length} />
+            <BlogPricingTable />
           </div>
         </div>
 
@@ -498,12 +678,36 @@ export default function Packages() {
             <h3 className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-bold leading-normal text-white">
               Research Platform
             </h3>
-            <button
-              onClick={() => handleViewMetrics('Research Platform')}
-              className="text-[14px] md:text-[16px] text-white underline hover:text-[#FFD60A] transition-colors"
-            >
-              View Metrics
-            </button>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => togglePricingSection('research-pricing')}
+                className={`flex items-center gap-2 rounded-[8px] border px-3 py-2 text-[14px] text-white transition-all duration-200 ${
+                  expandedSections.includes('research-pricing')
+                    ? 'border-[#FFD60A] bg-[rgba(255,214,10,0.1)]'
+                    : 'border-white/20 bg-white/5 hover:border-[#FFD60A] hover:bg-[rgba(255,214,10,0.1)]'
+                }`}
+                title="View detailed pricing plans"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`transition-transform duration-200 ${expandedSections.includes('research-pricing') ? 'rotate-180' : ''}`}
+                >
+                  <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M8 11V8M8 5H8.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+                {expandedSections.includes('research-pricing') ? 'Hide Pricing' : 'View Pricing'}
+              </button>
+              <button
+                onClick={() => handleViewMetrics('Research Platform')}
+                className="text-[14px] md:text-[16px] text-white underline hover:text-[#FFD60A] transition-colors"
+              >
+                View Metrics
+              </button>
+            </div>
           </div>
 
           <div className="flex justify-center">
@@ -550,6 +754,12 @@ export default function Packages() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Spotlight Effect and Pricing Table */}
+          <div className={`overflow-hidden transition-all duration-300 ${expandedSections.includes('research-pricing') ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+            <SpotlightEffect cardCount={RESEARCH_FEATURES.length} />
+            <ResearchPricingTable />
           </div>
         </div>
 
