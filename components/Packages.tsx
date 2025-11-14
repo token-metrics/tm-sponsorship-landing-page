@@ -4,29 +4,29 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 
 const BLOG_FEATURES = [
-  {
-    name: 'Link Insertion',
-    description: [
-      'Contextual mention + link added to existing ranking post.',
-      'Link policy: Nofollow / sponsored only.'
-    ],
-    price: '$100 - $1,000',
-    priceNote: '(one time)',
-    icon: '/Landing%20Page%20Token%20Metrics_icon/Link-Chain--Streamline-Core%201.svg',
-    featured: false
-  },
-  {
-    name: 'Guest Post',
-    description: [
-      '1,400–1,800 words, editor-written',
-      'Includes internal links to ranking hubs.',
-      ''
-    ],
-    price: '$500 - $2,500',
-    priceNote: '(one time)',
-    icon: '/Landing%20Page%20Token%20Metrics_icon/Crown--Streamline-Core%20(2)%201.svg',
-    featured: true
-  }
+  // {
+  //   name: 'Link Insertion',
+  //   description: [
+  //     'Contextual mention + link added to existing ranking post.',
+  //     'Link policy: Nofollow / sponsored only.'
+  //   ],
+  //   price: '$100 - $1,000',
+  //   priceNote: '(one time)',
+  //   icon: '/Landing%20Page%20Token%20Metrics_icon/Link-Chain--Streamline-Core%201.svg',
+  //   featured: false
+  // },
+  // {
+  //   name: 'Guest Post',
+  //   description: [
+  //     '1,400–1,800 words, editor-written',
+  //     'Includes internal links to ranking hubs.',
+  //     ''
+  //   ],
+  //   price: '$500 - $2,500',
+  //   priceNote: '(one time)',
+  //   icon: '/Landing%20Page%20Token%20Metrics_icon/Crown--Streamline-Core%20(2)%201.svg',
+  //   featured: true
+  // }
 ]
 
 const YOUTUBE_FEATURES = [
@@ -186,7 +186,7 @@ const extractPrice = (price: string) => {
 
 // Map package sections to corresponding metrics cards
 const SECTION_TO_CARD_MAP = {
-  'Blog Features': ['metrics-card-link-insertion', 'metrics-card-guest-post'], // Maps to both Link Insertion and Guest Post
+  'Blog Features': [], // Temporarily disabled - Link Insertion and Guest Post commented out
   'YouTube Features': 'metrics-card-youtube', // Maps to 🎥 YouTube metrics
   'Newsletter Placements': 'metrics-card-newsletter', // Maps to 📰 Newsletter metrics
   'Research Platform': 'metrics-card-research',  // Maps to 🔍 Research metrics
@@ -287,13 +287,13 @@ const handleViewMetrics = (sectionName: string) => {
 
 // Pricing data for different packages
 const PRICING_DATA = {
-  'Blog Features': [
-    { duration: '1 Month', linkInsertion: '$100', guestPost: '$500' },
-    { duration: '3 Months', linkInsertion: '$300', guestPost: '$1,000' },
-    { duration: '6 Months', linkInsertion: '$500', guestPost: '$1,500' },
-    { duration: '12 Months', linkInsertion: '$700', guestPost: '$2,000' },
-    { duration: 'Life', linkInsertion: '$1,000', guestPost: '$2,500' }
-  ],
+  // 'Blog Features': [
+  //   { duration: '1 Month', linkInsertion: '$100', guestPost: '$500' },
+  //   { duration: '3 Months', linkInsertion: '$300', guestPost: '$1,000' },
+  //   { duration: '6 Months', linkInsertion: '$500', guestPost: '$1,500' },
+  //   { duration: '12 Months', linkInsertion: '$700', guestPost: '$2,000' },
+  //   { duration: 'Life', linkInsertion: '$1,000', guestPost: '$2,500' }
+  // ],
   'Research Platform': [
     { duration: '1 Week', price: '$600' },
     { duration: '2 Weeks', price: '$1,000' },
@@ -357,40 +357,40 @@ const SpotlightEffect = ({ cardCount }: { cardCount: number }) => {
 }
 
 // Component for Blog Features Pricing Table
-const BlogPricingTable = () => {
-  const pricingData = [
-    { duration: '1 Month', linkInsertion: '$100', guestPost: '$500' },
-    { duration: '3 Months', linkInsertion: '$300', guestPost: '$1,000' },
-    { duration: '6 Months', linkInsertion: '$500', guestPost: '$1,500' },
-    { duration: '12 Months', linkInsertion: '$700', guestPost: '$2,000' },
-    { duration: 'Life', linkInsertion: '$1,000', guestPost: '$2,500' }
-  ]
+// const BlogPricingTable = () => {
+//   const pricingData = [
+//     { duration: '1 Month', linkInsertion: '$100', guestPost: '$500' },
+//     { duration: '3 Months', linkInsertion: '$300', guestPost: '$1,000' },
+//     { duration: '6 Months', linkInsertion: '$500', guestPost: '$1,500' },
+//     { duration: '12 Months', linkInsertion: '$700', guestPost: '$2,000' },
+//     { duration: 'Life', linkInsertion: '$1,000', guestPost: '$2,500' }
+//   ]
 
-  return (
-    <div className="mt-2 overflow-hidden rounded-[12px] border border-white/10 bg-[rgba(255,255,255,0.02)]">
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-white/10 bg-gradient-to-b from-[rgba(255,214,10,0.08)] to-transparent">
-              <th className="px-4 py-3 text-left font-['Articulat_CF',_sans-serif] text-[14px] text-white font-semibold">Duration</th>
-              <th className="px-4 py-3 text-center font-['Articulat_CF',_sans-serif] text-[14px] text-white font-semibold">Link Insertion</th>
-              <th className="px-4 py-3 text-center font-['Articulat_CF',_sans-serif] text-[14px] text-white font-semibold">Guest Post</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pricingData.map((row, index) => (
-              <tr key={index} className="border-b border-white/5 transition-colors hover:bg-[rgba(255,214,10,0.05)]">
-                <td className="px-4 py-3 font-['Articulat_CF',_sans-serif] text-[14px] text-white">{row.duration}</td>
-                <td className="px-4 py-3 text-center font-['Articulat_CF',_sans-serif] text-[14px] font-semibold text-[#FFD60A]">{row.linkInsertion}</td>
-                <td className="px-4 py-3 text-center font-['Articulat_CF',_sans-serif] text-[14px] font-semibold text-[#FFD60A]">{row.guestPost}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  )
-}
+//   return (
+//     <div className="mt-2 overflow-hidden rounded-[12px] border border-white/10 bg-[rgba(255,255,255,0.02)]">
+//       <div className="overflow-x-auto">
+//         <table className="w-full">
+//           <thead>
+//             <tr className="border-b border-white/10 bg-gradient-to-b from-[rgba(255,214,10,0.08)] to-transparent">
+//               <th className="px-4 py-3 text-left font-['Articulat_CF',_sans-serif] text-[14px] text-white font-semibold">Duration</th>
+//               <th className="px-4 py-3 text-center font-['Articulat_CF',_sans-serif] text-[14px] text-white font-semibold">Link Insertion</th>
+//               <th className="px-4 py-3 text-center font-['Articulat_CF',_sans-serif] text-[14px] text-white font-semibold">Guest Post</th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {pricingData.map((row, index) => (
+//               <tr key={index} className="border-b border-white/5 transition-colors hover:bg-[rgba(255,214,10,0.05)]">
+//                 <td className="px-4 py-3 font-['Articulat_CF',_sans-serif] text-[14px] text-white">{row.duration}</td>
+//                 <td className="px-4 py-3 text-center font-['Articulat_CF',_sans-serif] text-[14px] font-semibold text-[#FFD60A]">{row.linkInsertion}</td>
+//                 <td className="px-4 py-3 text-center font-['Articulat_CF',_sans-serif] text-[14px] font-semibold text-[#FFD60A]">{row.guestPost}</td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
+//       </div>
+//     </div>
+//   )
+// }
 
 // Component for Research Platform Pricing Table
 const ResearchPricingTable = () => {
@@ -459,8 +459,8 @@ export default function Packages() {
           </div>
         </div>
 
-        {/* Blog Features */}
-        <div className="mb-16 mx-auto w-[680px]">
+        {/* Blog Features - Temporarily disabled */}
+        {/* <div className="mb-16 mx-auto w-[680px]">
           <div className="mb-8 flex items-start justify-between">
             <h3 className="font-['Articulat_CF',_sans-serif] text-[20px] md:text-[24px] font-medium leading-normal text-white">
               <span className="font-semibold">Blog Features</span> <span className="text-white">(Domain Authority - 65%)</span>
@@ -543,12 +543,11 @@ export default function Packages() {
             ))}
           </div>
 
-          {/* Spotlight Effect and Pricing Table */}
           <div className={`overflow-hidden transition-all duration-300 ${expandedSections.includes('blog-pricing') ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
             <SpotlightEffect cardCount={BLOG_FEATURES.length} />
             <BlogPricingTable />
           </div>
-        </div>
+        </div> */}
 
         {/* YouTube Features */}
         <div className="mb-16 mx-auto w-[680px]">
