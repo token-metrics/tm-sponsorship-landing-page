@@ -5,30 +5,30 @@ const LEFT_IMG =
   '/Landing%20Page%20Token%20Metrics_img/ChatGPT%20Image%2026%20jun%202025%2C%2013_50_26%204.png'
 
 const CARDS = [
-  // {
-  //   title: '🔗 Link Insertion',
-  //   points: [
-  //     'Page impressions/mo (when ranked #3–#10): ~150k',
-  //     'Total clicks/mo: 32.4K',
-  //     'Total impressions/mo: 9.62M',
-  //     'Average CTR/mo: 0.3%',
-  //     'Average position/mo: 7.3',
-  //   ],
-  //   note: 'Time to live: 3–5 biz days',
-  // },
-  // {
-  //   title: '👑 Guest Post',
-  //   points: [
-  //     'Weeks to page-1 (when linked from a ranking hub): 1wk',
-  //     'First-90d pageviews: ~150k',
-  //     'Avg time-on-page: 53s',
-  //     'Total clicks/mo: 32.4K',
-  //     'Total impressions/mo: 9.62M',
-  //     'Average CTR/mo: 0.3%',
-  //     'Average position/mo: 7.3',
-  //   ],
-  //   note: 'Time to live: 3–5 biz days',
-  // },
+  {
+    title: '🔗 Link Insertion',
+    points: [
+      'Page impressions/mo (when ranked #3–#10): ~150k',
+      'Total clicks/mo: 32.4K',
+      'Total impressions/mo: 9.62M',
+      'Average CTR/mo: 0.3%',
+      'Average position/mo: 7.3',
+    ],
+    note: 'Time to live: 3–5 biz days',
+  },
+  {
+    title: '👑 Guest Post',
+    points: [
+      'Weeks to page-1 (when linked from a ranking hub): 1wk',
+      'First-90d pageviews: ~150k',
+      'Avg time-on-page: 53s',
+      'Total clicks/mo: 32.4K',
+      'Total impressions/mo: 9.62M',
+      'Average CTR/mo: 0.3%',
+      'Average position/mo: 7.3',
+    ],
+    note: 'Time to live: 3–5 biz days',
+  },
   {
     title: '📰 Newsletter',
     points: [
